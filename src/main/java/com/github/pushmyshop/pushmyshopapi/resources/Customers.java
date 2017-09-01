@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(collectionResourceRel = "customers", path = "customers")
 public interface Customers extends CrudRepository<Customer, Long> {
+    Customer findByUsername(String username);
 }
 
 

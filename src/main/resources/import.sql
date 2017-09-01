@@ -1,8 +1,8 @@
 INSERT INTO TEMPLATE (id,name) values (1,'pizzeria');
 INSERT INTO TEMPLATE (id,name) values (2,'cafeteria');
-INSERT INTO CUSTOMER (id,first_name,last_name,mail,password) values (1,'Tim','Horton','tim.horton@gmail.com','tim');
-INSERT INTO CUSTOMER (id,first_name,last_name,mail,password) values (2,'Zev','Siegel','zev.siegel@gmail.com','zev');
-INSERT INTO CUSTOMER (id,first_name,last_name,mail,password) values (3,'Fred','La Place','laplace@gmail.com','laplace');
+INSERT INTO CUSTOMER (id,first_name,last_name,mail,username,password) values (1,'Tim','Horton','tim.horton@gmail.com','tim','$2a$10$a3v1uCjRnFzJEvBpP7804.Dx6hOf3FsiZOzGhInt39obMn2dgIRkK');
+INSERT INTO CUSTOMER (id,first_name,last_name,mail,username,password) values (2,'Zev','Siegel','zev.siegel@gmail.com','zev','$2a$10$T.gTEIMxUhqRaA2ybJBlMOcv82nwCzGEVoZGejSiM7U7WbCfAFZB6');
+INSERT INTO CUSTOMER (id,first_name,last_name,mail,username,password) values (3,'Fred','La Place','laplace@gmail.com','laplace','$2a$10$xvyQkKeW7aGuBN80bp4czeCmxYIdmhAYtx.cBisQMh0T7SE2biUV6');
 INSERT INTO COMPAGNY (id,name,customer_id,template_id) values (1,'Tim Hortons',1,2);
 INSERT INTO COMPAGNY (id,name,customer_id,template_id) values (2,'Tim Horton Donut Drive-in',1,2);
 INSERT INTO COMPAGNY (id,name,customer_id,template_id) values (3,'Starbucks',2,2);
