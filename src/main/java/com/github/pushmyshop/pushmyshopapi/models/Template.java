@@ -9,18 +9,13 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Customer {
+public class Template {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String firstName;
-    private String lastName;
-    private String mail;
-    private String password;
+    private String name;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "template")
     private List<Compagny> compagnies;
-
-
 }
