@@ -6,7 +6,7 @@ INSERT INTO CUSTOMER (id,first_name,last_name,mail,username,password) values (3,
 INSERT INTO COMPAGNY (id,name,customer_id,template_id) values (1,'Tim Hortons',1,2);
 INSERT INTO COMPAGNY (id,name,customer_id,template_id) values (2,'Tim Horton Donut Drive-in',1,2);
 INSERT INTO COMPAGNY (id,name,customer_id,template_id) values (3,'Starbucks',2,2);
-INSERT INTO COMPAGNY (id,name,customer_id,template_id) values (4,'Mod Pizza',3,1);
+INSERT INTO COMPAGNY (id,name,customer_id,template_id) values (4,'Mo Pizza',3,1);
 
 
 INSERT INTO PRODUCT (id,desc,name,price,compagny_id) values (1,'A medium roast blend, expertly roasted with care to deliver a perfect balance and the unique Tim Hortons taste that has made it Canada s Favourite Coffee.','ORIGINAL BLEND',2.00,1);
