@@ -21,11 +21,11 @@ public class Compagny {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="template_id")
-    private Template template;
+    private String template;
 
-    @OneToMany(mappedBy = "compagny")
+    private Boolean isGenerated = false;
+
+    @OneToMany(mappedBy = "compagny", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<Product> products;
 
 }

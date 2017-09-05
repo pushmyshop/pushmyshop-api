@@ -8,6 +8,8 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 
 @Configuration
 class CustomRestMvcConfiguration {
+
+
     @Bean
     public RepositoryRestConfigurer repositoryRestConfigurer() {
 
