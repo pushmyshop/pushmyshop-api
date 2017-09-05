@@ -1,5 +1,6 @@
 package com.github.pushmyshop.pushmyshopapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name="compagny_id")
+    @JsonIgnore
     private Compagny compagny;
 
 }

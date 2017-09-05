@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,4 +27,5 @@ public class Compagny {
 
     @OneToMany(mappedBy = "compagny")
     private List<Product> products;
+
 }
