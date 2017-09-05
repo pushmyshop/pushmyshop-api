@@ -12,8 +12,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", maxAge = 4800)
 @RestController
 @RequestMapping("/api/compagnies/{compagnyId}/carts")
 public class CartsController {
@@ -37,6 +38,16 @@ public class CartsController {
     public Cart addProduct(@PathVariable  String cartId, @RequestBody Product product){
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.getProducts().add(product);
+        cart = carts.save(cart);
+        return cart;
+    }
+
+    @PostMapping
+    @RequestMapping("/{cartId}/product/{productId}")
+    public Cart deleteProduct(@PathVariable  String cartId, @RequestBody Product product){
+        Cart cart = carts.findOne(UUID.fromString(cartId));
+        cart.getProducts().remove(product);
+        //cart.setProducts(cart.getProducts().stream().filter(product -> productId != product.getId()).collect(Collectors.toList()));
         cart = carts.save(cart);
         return cart;
     }

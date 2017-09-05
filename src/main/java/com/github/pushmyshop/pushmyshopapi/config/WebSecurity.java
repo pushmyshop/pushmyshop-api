@@ -33,9 +33,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                  //// Allowed requests used by generated site
                 .antMatchers(HttpMethod.GET, "/api/compagnies/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/compagnies/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/compagnies/**").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/api/compagnies/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/compagnies/**/carts/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/compagnies/**/carts/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/compagnies/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
