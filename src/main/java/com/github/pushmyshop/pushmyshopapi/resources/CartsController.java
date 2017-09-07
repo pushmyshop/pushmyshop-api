@@ -29,8 +29,7 @@ public class CartsController {
         Compagny compagny = compagnies.findOne(compagnyId);
         Cart newCart = new Cart();
         newCart.setCompagny(compagny);
-        newCart = carts.save(newCart);
-        return newCart;
+        return carts.save(newCart);
     }
 
     @PostMapping
@@ -38,8 +37,7 @@ public class CartsController {
     public Cart addProduct(@PathVariable  String cartId, @RequestBody Product product){
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.getProducts().add(product);
-        cart = carts.save(cart);
-        return cart;
+        return carts.save(cart);
     }
 
     @PostMapping
@@ -47,9 +45,16 @@ public class CartsController {
     public Cart deleteProduct(@PathVariable  String cartId, @RequestBody Product product){
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.getProducts().remove(product);
-        //cart.setProducts(cart.getProducts().stream().filter(product -> productId != product.getId()).collect(Collectors.toList()));
-        cart = carts.save(cart);
-        return cart;
+        return carts.save(cart);
+    }
+
+    @PostMapping
+    @RequestMapping("/{cartId}/checkout")
+    public Cart deleteProduct(@PathVariable  String cartId, @RequestBody Cart cartToCheckout){
+        Cart cart = carts.findOne(UUID.fromString(cartId));
+        cart.getPickingInformation(cartToCheckout);
+        cart.setState(Cart.State.VALIDATED);
+        return carts.save(cart);
     }
 }
 
