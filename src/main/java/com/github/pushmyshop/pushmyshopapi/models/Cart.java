@@ -46,6 +46,7 @@ public class Cart {
     public enum State {
         NOT_VALIDATED,
         VALIDATED,
-        CONFIRMED
+        CONFIRMED,
+        CANCELED
     }
 }

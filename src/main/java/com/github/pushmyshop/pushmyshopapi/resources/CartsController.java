@@ -57,10 +57,26 @@ public class CartsController {
 
     @PostMapping
     @RequestMapping("/{cartId}/checkout")
-    public Cart deleteProduct(@PathVariable  String cartId, @RequestBody Cart cartToCheckout){
+    public Cart checkoutCart(@PathVariable  String cartId, @RequestBody Cart cartToCheckout){
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.getPickingInformation(cartToCheckout);
         cart.setState(Cart.State.VALIDATED);
+        return carts.save(cart);
+    }
+
+    @PostMapping
+    @RequestMapping("/{cartId}/confirm")
+    public Cart confirmCart(@PathVariable  String cartId){
+        Cart cart = carts.findOne(UUID.fromString(cartId));
+        cart.setState(Cart.State.CONFIRMED);
+        return carts.save(cart);
+    }
+
+    @PostMapping
+    @RequestMapping("/{cartId}/cancel")
+    public Cart cancelCart(@PathVariable  String cartId){
+        Cart cart = carts.findOne(UUID.fromString(cartId));
+        cart.setState(Cart.State.CANCELED);
         return carts.save(cart);
     }
 }
