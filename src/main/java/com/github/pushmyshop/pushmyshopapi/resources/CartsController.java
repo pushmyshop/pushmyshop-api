@@ -11,6 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,12 @@ public class CartsController {
     protected Compagnies compagnies;
     @Autowired
     protected Carts carts;
+
+    @GetMapping
+    public List<Cart> getAllFor(@PathVariable  long compagnyId){
+        Compagny compagny = compagnies.findOne(compagnyId);
+        return carts.findByCompagny(compagny);
+    }
 
     @PostMapping
     public Cart createFor(@PathVariable  long compagnyId){
