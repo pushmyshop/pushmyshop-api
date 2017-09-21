@@ -28,4 +28,7 @@ public class Compagny {
     @OneToMany(mappedBy = "compagny", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<Product> products;
 
+    @OneToOne(cascade=CascadeType.ALL)
+    private PushSubscription subscription;
+
 }

@@ -4,26 +4,38 @@ package com.github.pushmyshop.pushmyshopapi.resources;
 import com.github.pushmyshop.pushmyshopapi.models.Cart;
 import com.github.pushmyshop.pushmyshopapi.models.Compagny;
 import com.github.pushmyshop.pushmyshopapi.models.Product;
+import com.github.pushmyshop.pushmyshopapi.models.PushSubscription;
+import lombok.extern.slf4j.Slf4j;
+import nl.martijndwars.webpush.Notification;
+import nl.martijndwars.webpush.PushService;
+import org.jose4j.lang.JoseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.concurrent.ExecutionException;
 
+@Slf4j
 @CrossOrigin(origins = "*", maxAge = 4800)
 @RestController
 @RequestMapping("/api/compagnies/{compagnyId}/carts")
 public class CartsController {
 
+    private List<PushSubscription> activeSubscription = new ArrayList<>();
+
     @Autowired
     protected Compagnies compagnies;
     @Autowired
     protected Carts carts;
+    @Autowired
+    protected PushService pushService;
 
     @GetMapping
     public List<Cart> getAllFor(@PathVariable  long compagnyId){
@@ -61,7 +73,9 @@ public class CartsController {
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.getPickingInformation(cartToCheckout);
         cart.setState(Cart.State.VALIDATED);
-        return carts.save(cart);
+        cart= carts.save(cart);
+        sendNotification(cart.getCompagny().getSubscription(), "VALIDATED".getBytes());
+        return cart;
     }
 
     @PostMapping
@@ -69,7 +83,9 @@ public class CartsController {
     public Cart confirmCart(@PathVariable  String cartId){
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.setState(Cart.State.CONFIRMED);
-        return carts.save(cart);
+        cart= carts.save(cart);
+        sendNotification(cart.getSubscription(), "CONFIRMED".getBytes());
+        return cart;
     }
 
     @PostMapping
@@ -77,8 +93,47 @@ public class CartsController {
     public Cart cancelCart(@PathVariable  String cartId){
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.setState(Cart.State.CANCELED);
-        return carts.save(cart);
+        cart= carts.save(cart);
+        sendNotification(cart.getSubscription(), "CANCELED".getBytes());
+        return cart;
     }
+
+    @PostMapping
+    @RequestMapping("/{cartId}/webpush")
+    public String subscribe(@PathVariable  String cartId, @RequestBody PushSubscription subscription) {
+        Cart cart = carts.findOne(UUID.fromString(cartId));
+        cart.setSubscription(subscription);
+        carts.save(cart);
+        return "\"Web push subscribed\"";
+    }
+
+    @PostMapping
+    @RequestMapping("/webpush")
+    public String subscribe(@PathVariable  long compagnyId, @RequestBody PushSubscription subscription) {
+        Compagny compagny = compagnies.findOne(compagnyId);
+        compagny.setSubscription(subscription);
+        compagnies.save(compagny);
+        return "\"Web push subscribed\"";
+    }
+
+    private void sendNotification(PushSubscription sub, byte[] payload){
+        if(sub !=null) {
+            try {
+                Notification notification = new Notification(
+                        sub.getEndpoint(),
+                        sub.getPublicKey(),
+                        sub.getAuth(),
+                        payload
+                );
+                // Send the notification
+                pushService.send(notification);
+            } catch (IOException | JoseException | ExecutionException
+                    | GeneralSecurityException | InterruptedException e) {
+                log.error("Could not Send notification :", e);
+            }
+        }
+    }
+
 }
 
 

@@ -36,6 +36,9 @@ public class Cart {
     private String pickingName;
     private String pickingPhone;
 
+    @OneToOne(cascade=CascadeType.ALL)
+    private PushSubscription subscription;
+
     public void getPickingInformation(Cart cartToCheckout) {
         this.setPickingDate(cartToCheckout.getPickingDate());
         this.setPickingHour(cartToCheckout.getPickingHour());
