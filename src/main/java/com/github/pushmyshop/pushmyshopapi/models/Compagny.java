@@ -31,4 +31,14 @@ public class Compagny {
     @OneToOne(cascade=CascadeType.ALL)
     private PushSubscription subscription;
 
+    private String title;
+    private String subTitle;
+    private String addressLine1;
+    private String addressLine2;
+    private String addressLine3;
+    private String postalCode;
+    private String town;
+    private String telephoneNumber;
+    private String emailAdress;
+
 }
