@@ -37,6 +37,14 @@ public class CartsController {
     @Autowired
     protected PushService pushService;
 
+    private static String NOTIFICATION_TEMPLATE = "{\n" +
+            " \"notification\": \n" +
+            "   \n{\n" +
+            "   \"title\" : \"TITLE\",\n" +
+            "   \"body\" : \"MESSAGE\",\n" +
+            "   \"icon\" : \"ICON\"\n" +
+            " }}\n";
+
     @GetMapping
     public List<Cart> getAllFor(@PathVariable  long compagnyId){
         Compagny compagny = compagnies.findOne(compagnyId);
@@ -74,7 +82,11 @@ public class CartsController {
         cart.getPickingInformation(cartToCheckout);
         cart.setState(Cart.State.VALIDATED);
         cart= carts.save(cart);
-        sendNotification(cart.getCompagny().getSubscription(), "VALIDATED".getBytes());
+        sendNotification(cart.getCompagny().getSubscription()
+                , NOTIFICATION_TEMPLATE
+                        .replace("TITLE", cart.getCompagny().getName())
+                        .replace("MESSAGE", "Nouvelle commande !")
+                        .replace("ICON", cart.getCompagny().getLogo()).getBytes());
         return cart;
     }
 
@@ -84,7 +96,10 @@ public class CartsController {
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.setState(Cart.State.CONFIRMED);
         cart= carts.save(cart);
-        sendNotification(cart.getSubscription(), "CONFIRMED".getBytes());
+        sendNotification(cart.getSubscription(), NOTIFICATION_TEMPLATE
+                .replace("TITLE", cart.getCompagny().getName())
+                .replace("MESSAGE", "Votre commande a été confirmée")
+                .replace("ICON", cart.getCompagny().getLogo()).getBytes());
         return cart;
     }
 
@@ -94,7 +109,10 @@ public class CartsController {
         Cart cart = carts.findOne(UUID.fromString(cartId));
         cart.setState(Cart.State.CANCELED);
         cart= carts.save(cart);
-        sendNotification(cart.getSubscription(), "CANCELED".getBytes());
+        sendNotification(cart.getSubscription(), NOTIFICATION_TEMPLATE
+                .replace("TITLE", cart.getCompagny().getName())
+                .replace("MESSAGE", "Votre commande a été annulée")
+                .replace("ICON", cart.getCompagny().getLogo()).getBytes());
         return cart;
     }
 
