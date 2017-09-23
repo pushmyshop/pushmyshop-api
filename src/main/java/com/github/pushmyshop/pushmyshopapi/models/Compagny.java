@@ -40,5 +40,7 @@ public class Compagny {
     private String town;
     private String telephoneNumber;
     private String emailAdress;
+    private String image;
+    private String logo;
 
 }

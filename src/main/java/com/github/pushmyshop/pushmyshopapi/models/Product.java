@@ -19,6 +19,7 @@ public class Product {
     private String name;
     private String desc;
     private Double price;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name="compagny_id")
