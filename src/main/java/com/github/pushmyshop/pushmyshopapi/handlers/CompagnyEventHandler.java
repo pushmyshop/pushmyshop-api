@@ -19,7 +19,7 @@ public class CompagnyEventHandler {
     @HandleAfterSave()
     public void handleAfterSave(Compagny compagny) {
         log.info("[After Save] Create file for generate web app");
-        ProcessBuilder process = new ProcessBuilder("yo", "pushmyshop", String.format("\"%s\"",compagny.getName()), "/tmp/");
+        ProcessBuilder process = new ProcessBuilder("yo", "pushmyshop",String.format("%s",compagny.getId()), String.format("\"%s\"",compagny.getName()), "/tmp/");
         try {
             process.start();
               } catch (IOException exception) {
