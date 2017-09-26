@@ -39,7 +39,7 @@ public class Compagny {
     private String postalCode;
     private String town;
     private String telephoneNumber;
-    private String emailAdress;
+    private String emailAddress;
     private String image;
     private String logo;
 
