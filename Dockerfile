@@ -9,15 +9,13 @@ RUN dnf install -y java docker-ce
 RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 RUN dnf install -y nodejs
 RUN dnf install -y git
-
-
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 RUN npm install -g yo --allow-root
 RUN npm uninstall -g https://github.com/pushmyshop/generator-pushmyshop.git
 RUN npm install -g https://github.com/pushmyshop/generator-pushmyshop.git --allow-root
 RUN dnf install -y sudo
 
-RUN adduser --groups docker,wheel,ftp pushmyshop
+RUN adduser --groups docker,wheel,ftp,497 pushmyshop
 USER pushmyshop
 
 RUN mkdir -p /home/pushmyshop/.config/configstore/
