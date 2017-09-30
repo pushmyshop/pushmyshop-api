@@ -7,15 +7,15 @@ RUN dnf makecache
 RUN dnf config-manager --set-enabled docker-ce-edge
 RUN dnf install -y java docker-ce
 RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
-RUN dnf install -y nodejs 
-RUN dnf install -y git
+RUN dnf install -y sudo git nodejs
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
-RUN dnf install -y sudo
 RUN npm install -g yo --allow-root
-RUN npm install -g https://github.com/pushmyshop/generator-pushmyshop.git --allow-root
 
 RUN groupadd ec2 -g 497
 RUN adduser --groups docker,wheel,ftp,ec2 pushmyshop
+
+RUN npm install -g https://github.com/pushmyshop/generator-pushmyshop.git --allow-root
+
 USER pushmyshop
 
 RUN mkdir -p /home/pushmyshop/.config/configstore/
