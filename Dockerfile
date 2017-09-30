@@ -10,9 +10,9 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 RUN dnf install -y nodejs 
 RUN dnf install -y git
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
+RUN dnf install -y sudo
 RUN npm install -g yo --allow-root
 RUN npm install -g https://github.com/pushmyshop/generator-pushmyshop.git --allow-root
-RUN dnf install -y sudo
 
 RUN groupadd ec2 -g 497
 RUN adduser --groups docker,wheel,ftp,ec2 pushmyshop
