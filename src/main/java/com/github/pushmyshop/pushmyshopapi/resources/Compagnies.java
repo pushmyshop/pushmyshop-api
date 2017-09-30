@@ -2,14 +2,9 @@ package com.github.pushmyshop.pushmyshopapi.resources;
 
 
 import com.github.pushmyshop.pushmyshopapi.models.Compagny;
-import com.github.pushmyshop.pushmyshopapi.models.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(collectionResourceRel = "compagnies", path = "compagnies")

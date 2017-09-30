@@ -1,12 +1,11 @@
 package com.github.pushmyshop.pushmyshopapi.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
