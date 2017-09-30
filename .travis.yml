@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - oraclejdk8
+
+services:
+  - docker
+
+after_success:
+  - docker login -u="$DOCKER_HUB_USERNAME" -p="$DOCKER_HUB_PASSWORD" docker-io
+  - docker build -t 'pushmyshop/pushmyshop-api:latest' .
+  - docker push pushmyshop/pushmyshop-api:latest
+
