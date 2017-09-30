@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_IP}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+logging:
+  level:
+    org:
+      springframework: ERROR
+
+web:
+  push:
+    vapid:
+      public-key: BGgM0ydbnR-04QSrQyPMC0JMqA7xF6TSQ8Wb7rtKa5PSTdOjpSmdydadrrlwuPziFhUM8DodMt_t09nDi7oFtSY
+      private-key: OYi3b_J794O-PTFzaAbqX5vbXrQz5XnK7lq7tmMXErg

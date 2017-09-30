@@ -23,4 +23,4 @@ RUN echo '{"clientId": 732455723580,"optOut": true}'>/home/pushmyshop/.config/co
 VOLUME /tmp
 ADD target/pushmyshop-api-0.0.1-SNAPSHOT.jar app.jar
 ENV JAVA_OPTS=""
-ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=${PROFILE} -jar /app.jar
