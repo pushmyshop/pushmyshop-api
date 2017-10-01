@@ -15,6 +15,7 @@ RUN groupadd ec2 -g 497
 RUN adduser --groups docker,wheel,ftp,ec2 pushmyshop
 
 RUN npm install -g https://github.com/pushmyshop/generator-pushmyshop.git --allow-root
+ENV LC_ALL en_US.UTF-8
 
 USER pushmyshop
 
@@ -23,4 +24,4 @@ RUN echo '{"clientId": 732455723580,"optOut": true}'>/home/pushmyshop/.config/co
 VOLUME /tmp
 ADD target/pushmyshop-api-0.0.1-SNAPSHOT.jar app.jar
 ENV JAVA_OPTS=""
-ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=${PROFILE} -jar /app.jar
+ENTRYPOINT exec java $JAVA_OPTS -Dfile.encoding=UTF8 -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=${PROFILE} -jar /app.jar
