@@ -20,9 +20,9 @@ public class CompagnyEventHandler {
         log.info("[After Save] Create file for generate web app");
         ProcessBuilder processBuilder = new ProcessBuilder("yo", "pushmyshop", "/tmp/pushmyshop/"
                 , String.format("%s", compagny.getId())
-                , String.format("%s", compagny.getName())
                 , String.format("%s", compagny.getLogo())
-                , String.format("%s", compagny.getImage()));
+                , String.format("%s", compagny.getImage())
+                , String.format("%s", compagny.getName()));
         try {
             processBuilder.redirectErrorStream(true);
             processBuilder.directory(new File("/tmp/"));
